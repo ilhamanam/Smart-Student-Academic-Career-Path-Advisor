@@ -1,0 +1,165 @@
+/* =============================================================
+   style.css — Smart Student Academic & Career Path Advisor
+   Supplemental styles that extend Tailwind CSS.
+   Keep this file lean; Tailwind handles the heavy lifting.
+   ============================================================= */
+
+/* ---------- Base ---------- */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+/* Smooth scrolling for the whole page */
+html {
+  scroll-behavior: smooth;
+}
+
+/* ---------- Filter button active state ---------- */
+/* Applied dynamically via JavaScript */
+.active-filter {
+  background-color: #2563eb; /* primary-600 */
+  color: #ffffff;
+  box-shadow: 0 1px 4px rgba(37, 99, 235, 0.35);
+}
+
+.filter-btn:not(.active-filter) {
+  color: #6b7280; /* gray-500 */
+}
+
+.filter-btn:not(.active-filter):hover {
+  background-color: #eff6ff; /* primary-50 */
+  color: #2563eb;
+}
+
+/* ---------- Task card ---------- */
+.task-card {
+  background: #ffffff;
+  border: 1px solid #e0e7ff; /* primary-100-ish */
+  border-radius: 1rem;        /* rounded-2xl */
+  padding: 1rem;
+  transition: box-shadow 0.2s ease, transform 0.15s ease;
+}
+
+.task-card:hover {
+  box-shadow: 0 4px 16px rgba(37, 99, 235, 0.10);
+  transform: translateY(-1px);
+}
+
+/* Completed task: muted style */
+.task-card.completed-card {
+  background: #f8fafc;
+  border-color: #e2e8f0;
+  opacity: 0.75;
+}
+
+.task-card.completed-card .task-title-text {
+  text-decoration: line-through;
+  color: #94a3b8; /* slate-400 */
+}
+
+/* ---------- Custom checkbox ---------- */
+.task-checkbox {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 1.25rem;
+  height: 1.25rem;
+  border: 2px solid #93c5fd; /* primary-300 */
+  border-radius: 50%;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: background 0.2s, border-color 0.2s;
+  position: relative;
+}
+
+.task-checkbox:checked {
+  background-color: #22c55e; /* green-500 */
+  border-color: #22c55e;
+}
+
+/* Checkmark via pseudo-element */
+.task-checkbox:checked::after {
+  content: "";
+  position: absolute;
+  top: 2px;
+  left: 5px;
+  width: 5px;
+  height: 9px;
+  border: 2px solid #fff;
+  border-top: none;
+  border-left: none;
+  transform: rotate(45deg);
+}
+
+.task-checkbox:focus-visible {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+}
+
+/* ---------- Priority badges ---------- */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.65rem;
+  font-weight: 600;
+  padding: 0.15rem 0.55rem;
+  border-radius: 999px;
+  letter-spacing: 0.03em;
+  white-space: nowrap;
+}
+
+.badge-high     { background: #fee2e2; color: #b91c1c; }
+.badge-medium   { background: #fef9c3; color: #854d0e; }
+.badge-low      { background: #dcfce7; color: #166534; }
+.badge-academic { background: #dbeafe; color: #1d4ed8; }
+.badge-career   { background: #ede9fe; color: #6d28d9; }
+.badge-personal { background: #fef3c7; color: #92400e; }
+.badge-research { background: #d1fae5; color: #065f46; }
+
+/* ---------- Action icon buttons ---------- */
+.icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 0.5rem;
+  transition: background 0.15s ease, color 0.15s ease;
+  cursor: pointer;
+  border: none;
+  background: transparent;
+}
+
+.icon-btn:hover  { background: #f1f5f9; }
+.icon-btn.edit   { color: #2563eb; }
+.icon-btn.edit:hover { background: #dbeafe; color: #1d4ed8; }
+.icon-btn.delete { color: #ef4444; }
+.icon-btn.delete:hover { background: #fee2e2; color: #b91c1c; }
+
+/* ---------- Overdue date highlight ---------- */
+.due-overdue {
+  color: #ef4444;
+  font-weight: 600;
+}
+
+/* ---------- Fade-in animation for new cards ---------- */
+@keyframes fadeSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.task-card {
+  animation: fadeSlideIn 0.25s ease both;
+}
+
+/* ---------- Responsive tweaks ---------- */
+@media (max-width: 480px) {
+  .task-card {
+    padding: 0.85rem;
+  }
+}

@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Smart Student Academic &amp; Career Path Advisor</title>
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Tailwind custom config -->
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              primary: {
+                50:  "#eff6ff",
+                100: "#dbeafe",
+                200: "#bfdbfe",
+                500: "#3b82f6",
+                600: "#2563eb",
+                700: "#1d4ed8",
+                900: "#1e3a8a",
+              },
+              accent: {
+                400: "#fb923c",
+                500: "#f97316",
+                600: "#ea580c",
+              },
+            },
+            fontFamily: {
+              sans: ["Inter", "ui-sans-serif", "system-ui", "sans-serif"],
+            },
+          },
+        },
+      };
+    </script>
+
+    <!-- Google Font: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css" />
+  </head>
+
+  <body class="bg-primary-50 min-h-screen font-sans antialiased">
+
+    <!-- ===== HEADER ===== -->
+    <header class="bg-primary-700 shadow-lg sticky top-0 z-50">
+      <div class="max-w-3xl mx-auto px-4 py-4 flex items-center gap-3">
+        <!-- Logo icon -->
+        <div class="flex-shrink-0 bg-accent-500 rounded-xl p-2">
+          <!-- Graduation cap SVG icon -->
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-white" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 3L1 9l11 6 9-4.91V17h2V9L12 3zM5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82z"/>
+          </svg>
+        </div>
+        <div>
+          <h1 class="text-white font-bold text-lg leading-tight">Smart Student</h1>
+          <p class="text-primary-200 text-xs">Academic &amp; Career Path Advisor</p>
+        </div>
+      </div>
+    </header>
+
+    <!-- ===== MAIN CONTENT ===== -->
+    <main class="max-w-3xl mx-auto px-4 py-8">
+
+      <!-- Add / Edit Task Card -->
+      <section aria-label="Task form" class="bg-white rounded-2xl shadow-sm border border-primary-100 p-5 mb-6">
+        <h2 id="form-heading" class="text-sm font-semibold text-primary-700 mb-3 uppercase tracking-wide">
+          Add New Task
+        </h2>
+
+        <form id="task-form" novalidate>
+          <!-- Task title -->
+          <div class="mb-3">
+            <label for="task-title" class="block text-xs font-medium text-gray-600 mb-1">Task Title <span class="text-red-400">*</span></label>
+            <input
+              id="task-title"
+              type="text"
+              placeholder="e.g. Study for Calculus exam"
+              maxlength="120"
+              class="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition"
+            />
+            <p id="title-error" class="text-red-400 text-xs mt-1 hidden">Title is required.</p>
+          </div>
+
+          <!-- Category + Priority row -->
+          <div class="grid grid-cols-2 gap-3 mb-3">
+            <div>
+              <label for="task-category" class="block text-xs font-medium text-gray-600 mb-1">Category</label>
+              <select
+                id="task-category"
+                class="w-full border border-gray-200 rounded-xl px-3 py-2.5 text-sm text-gray-800 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition bg-white"
+              >
+                <option value="Academic">📚 Academic</option>
+                <option value="Career">💼 Career</option>
+                <option value="Personal">🎯 Personal</option>
+                <option value="Research">🔬 Research</option>
+              </select>
+            </div>
+            <div>
+              <label for="task-priority" class="block text-xs font-medium text-gray-600 mb-1">Priority</label>
+              <select
+                id="task-priority"
+                class="w-full border border-gray-200 rounded-xl px-3 py-2.5 text-sm text-gray-800 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition bg-white"
+              >
+                <option value="High">🔴 High</option>
+                <option value="Medium">🟡 Medium</option>
+                <option value="Low">🟢 Low</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Due date -->
+          <div class="mb-4">
+            <label for="task-due" class="block text-xs font-medium text-gray-600 mb-1">Due Date (optional)</label>
+            <input
+              id="task-due"
+              type="date"
+              class="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm text-gray-800 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition"
+            />
+          </div>
+
+          <!-- Hidden field: editing task ID -->
+          <input type="hidden" id="edit-id" value="" />
+
+          <!-- Action buttons -->
+          <div class="flex gap-2">
+            <button
+              type="submit"
+              id="submit-btn"
+              class="flex-1 bg-primary-600 hover:bg-primary-700 text-white font-semibold text-sm rounded-xl py-2.5 transition-all duration-200 hover:shadow-md active:scale-95"
+            >
+              Add Task
+            </button>
+            <button
+              type="button"
+              id="cancel-btn"
+              class="hidden px-5 bg-gray-100 hover:bg-gray-200 text-gray-600 font-semibold text-sm rounded-xl py-2.5 transition-all duration-200 active:scale-95"
+            >
+              Cancel
+            </button>
+          </div>
+        </form>
+      </section>
+
+      <!-- Filter + Search Bar -->
+      <section aria-label="Filter and search" class="flex flex-col sm:flex-row gap-3 mb-4">
+        <!-- Filter tabs -->
+        <div class="flex bg-white rounded-xl border border-primary-100 shadow-sm p-1 gap-1">
+          <button id="filter-btn-all"       data-filter="all"       class="filter-btn active-filter text-sm font-medium px-4 py-1.5 rounded-lg transition-all duration-200">All</button>
+          <button id="filter-btn-active"    data-filter="active"    class="filter-btn text-sm font-medium px-4 py-1.5 rounded-lg transition-all duration-200">Active</button>
+          <button id="filter-btn-completed" data-filter="completed" class="filter-btn text-sm font-medium px-4 py-1.5 rounded-lg transition-all duration-200">Completed</button>
+        </div>
+        <!-- Search -->
+        <input
+          id="search-input"
+          type="search"
+          placeholder="Search tasks…"
+          class="flex-1 border border-gray-200 bg-white rounded-xl px-4 py-2 text-sm text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent shadow-sm transition"
+        />
+      </section>
+
+      <!-- Task List -->
+      <section aria-label="Task list">
+        <ul id="task-list" class="space-y-3"></ul>
+
+        <!-- Empty state -->
+        <div id="empty-state" class="hidden text-center py-16">
+          <div class="text-5xl mb-3">📋</div>
+          <p class="text-gray-400 font-medium text-sm">No tasks found.</p>
+          <p class="text-gray-300 text-xs mt-1">Add a task above to get started!</p>
+        </div>
+      </section>
+
+      <!-- Bulk action: clear completed -->
+      <div class="mt-6 text-right">
+        <button
+          id="clear-completed-btn"
+          class="text-xs text-gray-400 hover:text-red-400 transition font-medium underline underline-offset-2"
+        >
+          Clear all completed
+        </button>
+      </div>
+
+    </main>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="text-center text-xs text-gray-400 py-8 mt-4 border-t border-gray-100">
+      <p>© 2025 Smart Student Academic &amp; Career Path Advisor</p>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="script.js"></script>
+  </body>
+</html>
